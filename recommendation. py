@@ -1,0 +1,24 @@
+# sample movie database
+movies = [
+    {"title": "Inception", "genre": "sci-fi"},
+    {"title": "Titanic", "genre": "romance"},
+    {"title": "The Matrix", "genre": "sci-fi"},
+    {"title": "The Notebook", "genre": "romance"},
+    {"title": "Interstellar", "genre": "sci-fi"},
+    {"title": "The Godfather", "genre": "crime"},
+    {"title": "Pulp Fiction", "genre": "crime"},
+]
+
+# ask user preference
+user_genre = input("What genre do you like? (sci-fi, romance, crime): ").lower()
+
+# recommend movies
+recommendations = [movie["title"] for movie in movies if movie["genre"] == user_genre]
+
+# show results
+if recommendations:
+    print("We recommend these movies for you:")
+    for movie in recommendations:
+        print("-", movie)
+else:
+    print("Sorry, no recommendations available for that genre.")
