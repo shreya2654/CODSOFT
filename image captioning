@@ -1,0 +1,24 @@
+from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.models import Model
+import numpy as np
+
+# load the VGG16 model with pretrained ImageNet weights
+base_model = VGG16(weights='imagenet')
+# remove the final classification layer to get feature vectors
+model = Model(inputs=base_model.inputs, outputs=base_model.layers[-2].output)
+
+# load an image from storage
+img_path = '/storage/emulated/0/myimage.jpg'  # change this to your actual image path
+img = image.load_img(img_path, target_size=(224, 224))
+
+# convert image to array
+x = image.img_to_array(img)
+# expand dimensions to match model input
+x = np.expand_dims(x, axis=0)
+# preprocess for VGG16
+x = preprocess_input(x)
+
+# extract features
+features = model.predict(x)
+print("Extracted feature shape: ", features.shape)
